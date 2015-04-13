@@ -18,7 +18,7 @@ apply plugin: 'us.kirchmeier.capsule'
 def myMain = 'com.omsface.learning.dropwizard.DropWizardServer'
 mainClassName = myMain
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.7
 version = '1.0'
 
 
