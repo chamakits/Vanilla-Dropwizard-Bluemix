@@ -4,6 +4,7 @@ applications:
   memory: 512M
   instances: 1
   path: build/libs/vanilla-dropwizard-bluemix-1.0-capsule.jar
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
   env:
     CF_TRACE: true
 #  buildpack: https://github.com/chamakits/Vanilla-Dropwizard-Bluemix.git
