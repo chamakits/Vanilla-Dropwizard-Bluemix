@@ -1,0 +1,80 @@
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'us.kirchmeier:gradle-capsule-plugin:1.0-rc1'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'application'
+apply plugin: 'us.kirchmeier.capsule'
+
+
+def myMain = 'com.omsface.learning.dropwizard.DropWizardServer'
+mainClassName = myMain
+
+sourceCompatibility = 1.8
+version = '1.0'
+
+
+repositories {
+    mavenCentral()
+}
+
+//plugins {
+//    id "us.kirchmeier.capsule" version "1.0-rc1"
+//}
+defaultTasks 'run'
+
+dependencies {
+    compile 'org.apache.commons:commons-compress:1.9'
+    compile "joda-time:joda-time:2.6"
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+
+    compile 'com.fasterxml.jackson:jackson-parent:2.4.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1'
+    compile 'io.dropwizard:dropwizard-core:0.8.0'
+    compile 'io.dropwizard:dropwizard-hibernate:0.8.0'
+
+}
+
+//gradle.bat run -PappArgs="['server']"
+run {
+    if (project.hasProperty("appArgs")) {
+        args Eval.me(appArgs)
+    }
+}
+
+task fatCapsule(type: FatCapsule) {
+    applicationClass myMain
+}
+
+sourceSets {
+    main
+            {
+                java
+                        { srcDir 'src/main/java' }
+                resources
+                        {
+                            srcDir 'src/main/resources'
+                            srcDir 'src/main/config'
+                        }
+            }
+    test
+            {
+                java
+                        { srcDir 'src/test/java' }
+            }
+
+    [sourceSets.main.java.srcDirs
+             + sourceSets.main.resources.srcDirs
+             + sourceSets.test.java.srcDirs
+             + sourceSets.test.resources.srcDirs].each {
+        it.each { new File(it.toString()).mkdirs() }
+    }
+}
