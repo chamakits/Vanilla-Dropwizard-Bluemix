@@ -78,3 +78,5 @@ sourceSets {
         it.each { new File(it.toString()).mkdirs() }
     }
 }
+
+tasks.build.dependsOn fatCapsule
