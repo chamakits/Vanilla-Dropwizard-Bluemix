@@ -1,0 +1,7 @@
+---
+applications:
+- name: vanilla-dropwizard-bluemix
+  memory: 512M
+  instances: 1
+  path: build/libs/vanilla-dropwizard-bluemix-1.0-capsule.jar
+  buildpack: https://github.com/chamakits/Vanilla-Dropwizard-Bluemix.git
